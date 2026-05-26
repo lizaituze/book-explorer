@@ -1,43 +1,58 @@
-import { fetchBooks }
+import {
+fetchBooks
+}
+
 from "./fetchBooks.js";
 
-import { renderBooks }
+import {
+displayBooks
+}
+
 from "./ui.js";
 
-async function loadBooks(){
+async function load(){
 
 const books =
 await fetchBooks();
 
-renderBooks(
-books.slice(0,12)
+displayBooks(
+books.slice(
+0,
+12
+)
 );
 
 }
 
-loadBooks();
+load();
 
-const searchBtn =
-document.getElementById(
+document
+.getElementById(
 "searchBtn"
-);
+)
 
-searchBtn.addEventListener(
+.addEventListener(
 "click",
-async ()=>{
 
-const value =
-document.getElementById(
+async()=>{
+
+const search =
+document
+.getElementById(
 "searchInput"
-).value;
+)
+
+.value;
 
 const books =
 await fetchBooks(
-value
+search
 );
 
-renderBooks(
+displayBooks(
 books
 );
 
-});
+}
+
+);

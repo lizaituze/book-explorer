@@ -1,25 +1,32 @@
-export function renderBooks(
+import {
+addFavorite
+}
+
+from "./favorites.js";
+
+export function displayBooks(
 books
 ){
 
 const container =
 document.getElementById(
-"books-container"
+"booksContainer"
 );
 
 container.innerHTML="";
 
-books.forEach(book=>{
+books.forEach(
+book=>{
 
 container.innerHTML += `
 
-<div class="bg-white p-4 rounded shadow">
+<div class="bg-white p-4 shadow rounded">
 
-<h2>
+<h3>
 
 ${book.title}
 
-</h2>
+</h3>
 
 <p>
 
@@ -28,7 +35,12 @@ ${book.author_name?.[0]
 
 </p>
 
-<button>
+<button
+class="saveBtn bg-green-500 text-white p-2"
+
+data-title="${book.title}"
+
+>
 
 Favorite
 
