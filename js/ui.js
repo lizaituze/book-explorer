@@ -12,12 +12,22 @@ container.innerHTML = "";
 books.forEach(
 (book,index)=>{
 
+let displayBook = book;
+if (
+	(book.title?.toLowerCase().includes("pre-release") ||
+		book.title?.toLowerCase().includes("pre release")) &&
+	!book.cover_i
+) {
+	const replacement = books.find(
+		(b) => b.cover_i && b.title?.toLowerCase() !== book.title?.toLowerCase()
+	);
+	if (replacement) displayBook = replacement;
+}
+
 const image =
-book.cover_i
-
-? `https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`
-
-: "https://via.placeholder.com/200x300?text=No+Cover";
+	displayBook.cover_i
+		? `https://covers.openlibrary.org/b/id/${displayBook.cover_i}-L.jpg`
+		: "https://via.placeholder.com/200x300?text=No+Cover";
 
 container.innerHTML += `
 
@@ -51,7 +61,7 @@ font-bold
 min-h-[70px]
 ">
 
-${book.title}
+${displayBook.title}
 
 </h3>
 
@@ -60,8 +70,7 @@ text-gray-600
 mb-4
 ">
 
-${book.author_name?.[0]
-|| "Unknown"}
+${displayBook.author_name?.[0] || "Unknown"}
 
 </p>
 
@@ -109,12 +118,8 @@ button.addEventListener(
 
 ()=>{
 
-const index =
-button.dataset.index;
-
-addFavorite(
-books[index]
-);
+const index = button.dataset.index;
+addFavorite(books[index]);
 
 alert(
 "Book added to favorites"
